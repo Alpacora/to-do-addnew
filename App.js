@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { GlobalSafeArea } from './src/utils/GlobalSafeArea';
+import { Routes } from './src/routes/Routes';
+import { NavigationContainer } from '@react-navigation/native';
+
+import {
+  DMSans_400Regular,
+  DMSans_700Bold,
+  useFonts,
+} from '@expo-google-fonts/dm-sans';
+
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
+
+  const [fontsLoaded] = useFonts({ DMSans_400Regular, DMSans_700Bold });
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GlobalSafeArea>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </GlobalSafeArea>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
